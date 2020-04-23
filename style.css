@@ -52,10 +52,23 @@ p {
     font-size: 14px;
 }
 
-.tag-recommendation {
+.tag-list {
     width: 100%;
-    height: 200px;
     border: 1px solid black;
+    background-color: white;
     position: absolute;
     top: 22px;
+    left: 0;
+    display: none;
+    font-size: 14px;
+}
+
+.tag-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tag-list ul li {
+    padding: 5px;
 }

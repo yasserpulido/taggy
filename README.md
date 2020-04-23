@@ -10,6 +10,11 @@ The following instructions will allow you to take a look of the control's functi
 
 Alpha.
 
+### Status
+
+Beta working.
+Alpha released.
+
 ### Prerequisites
 
 Have installed:
@@ -60,6 +65,11 @@ Estas instrucciones te permitirán experimentar la funcionalidad del control.
 ### Versión
 
 Alfa.
+
+### Estado
+
+Beta trabajando.
+Alfa realizado.
 
 ### Prerrequisitos
 
