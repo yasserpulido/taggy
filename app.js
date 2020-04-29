@@ -1,9 +1,10 @@
 "use strict";
 
-var tagsInput = document.getElementsByClassName('tags-input');
-var textInput = document.getElementsByClassName('text-input');
-var tags = [];
-var movies = [
+const taggy = document.getElementsByClassName('taggy');
+const tagsInput = document.getElementsByClassName('input-section');
+const textInput = document.getElementsByClassName('text-input');
+const tags = [];
+const movies = [
     'The Shawshank Redemption',
     'The Godfather',
     'The Godfather: Part II',
@@ -15,53 +16,79 @@ var movies = [
     'The Good, the Bad and the Ugly',
     'Fight Club'
 ];
+const btnArrow = document.getElementsByClassName('btn-arrow');
 
-tagsInput[0].addEventListener('click', function () {
-    let tagList = document.getElementsByClassName('tag-list');
-    if (tagList[0] == undefined) {
-        GenerateList();
-        tagList[0].style.display = 'block';
-    } else {
-        if (tagList[0].style.display === 'block') {
-            tagList[0].style.display = 'none';
-            tagList[0].remove();
+textInput[0].addEventListener('keydown', function (e) {
+    // if (e.keyCode == 13) {
+    //     AddTag(e.srcElement.value);
+    // }
+    DropdownFilter(e.target.value);
+});
 
-        } else {
-            tagList[0].style.display = 'block';
-            GenerateList();
+taggy[0].addEventListener('click', function () {
+    // document.getElementsByClassName('text-input')[0].focus(); // Immediately when taggy is clicked the text-input receive the focus
+    DropdownList(movies);
+});
+
+taggy[0].addEventListener('focusout', function () {
+
+});
+
+function DropdownFilter(param) {
+    let moviesFilter = movies.filter(function (e) {
+        return e.toLowerCase().startsWith(param.toLowerCase());
+    })
+
+    DropdownList(moviesFilter);
+}
+
+function DropdownList(movieList) {
+    let div = document.getElementsByClassName('tag-list');
+
+    if (div != undefined) {
+        if (movieList.length != 0) {
+            let objList = {
+                div: document.createElement('div'),
+                ul: document.createElement('ul'),
+                li: ''
+            };
+
+            objList.div.classList.add('tag-list');
+            tagsInput[0].appendChild(objList.div); // tagsInput external class.
+
+            objList.div.appendChild(objList.ul);
+
+            movieList.forEach(element => {
+                objList.li = document.createElement('li');
+                objList.li.textContent = element;
+                objList.ul.appendChild(objList.li);
+            });
+
+            div[0].style.display = 'block'
+
+            DropdownDisplay(div);
         }
+    } else {
+        div[0].style.display = 'none'
+        DropdownDisplay(div);
     }
-    document.getElementsByClassName('text-input')[0].focus();
-});
+}
 
-textInput[0].addEventListener('keypress', function (e) {
-    if (e.keyCode == 13) {
-        AddTag(e.srcElement.value);
+function DropdownDisplay(param) {
+    if (param[0].style.display === 'none') {
+        param[0].style.display = 'block';
+        console.log('true');
+    } else {
+        param[0].style.display = 'none';
+        param[0].remove();
+        console.log('false');
     }
-});
 
-function GenerateList() {
-    console.log('creating object list...');
-    let objList = {
-        div: document.createElement('div'),
-        ul: document.createElement('ul'),
-        li: ''
-    };
-
-    console.log('inserting div...');
-    objList.div.classList.add('tag-list');
-    tagsInput[0].appendChild(objList.div); // tagsInput external class.
-
-    console.log('inserting ul...');
-    objList.div.appendChild(objList.ul);
-
-    console.log('inserting li...');
-    movies.forEach(element => {
-        objList.li = document.createElement('li');
-        console.log(element);
-        objList.li.textContent = element;
-        objList.ul.appendChild(objList.li);
-    });
+    if (btnArrow[0].classList.contains('fa-chevron-down')) {
+        btnArrow[0].classList.replace('fa-chevron-down', 'fa-chevron-up');
+    } else {
+        btnArrow[0].classList.replace('fa-chevron-up', 'fa-chevron-down');
+    }
 }
 
 function AddTag(param) {

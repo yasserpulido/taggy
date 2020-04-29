@@ -12,8 +12,18 @@ Alpha.
 
 ### Status
 
-Beta working.
-Alpha released.
+- Beta working.
+- Alpha released.
+
+### Description
+
+Outside:
+- An input text control.
+- Delete button for all added tags.
+- Data list display button.
+
+Inside:
+- The created tags can be edited by clicking on the word. Likewise, clicking on the tag X will remove it.
 
 ### Prerequisites
 
@@ -68,8 +78,18 @@ Alfa.
 
 ### Estado
 
-Beta trabajando.
-Alfa realizado.
+- Beta trabajando.
+- Alfa realizado.
+
+### Descripción
+
+Exterior:
+- Un control de entrada de texto.
+- Botón de eliminación de todos los tags agregados.
+- Botón de despliege de listado de datos.
+
+Interior:
+- Las etiquetas creadas, pueden ser editadas dando click sobre la palabra. Asimismo, dando click sobre la equis de la etiqueta se eliminará esta misma.
 
 ### Prerrequisitos
 
