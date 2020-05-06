@@ -17,71 +17,85 @@ const movies = [
     'Fight Club'
 ];
 const btnArrow = document.getElementsByClassName('btn-arrow');
+var dropdownToggle = false;
 
-textInput[0].addEventListener('keydown', function (e) {
-    // if (e.keyCode == 13) {
-    //     AddTag(e.srcElement.value);
-    // }
+textInput[0].addEventListener('keyup', function (e) {
+    if (e.keyCode == 13) {
+        AddTag(e.srcElement.value);
+    }
+
     DropdownFilter(e.target.value);
 });
 
 taggy[0].addEventListener('click', function () {
-    // document.getElementsByClassName('text-input')[0].focus(); // Immediately when taggy is clicked the text-input receive the focus
-    DropdownList(movies);
+    document.getElementsByClassName('text-input')[0].focus(); // Immediately when taggy is clicked the text-input receive the focus
+
+    // Puedo retornar un valor true o false despues del metodo dropdrownlist para enviar en el metodo dropdowndisplay.
+
+    if (dropdownToggle == false) {
+        DropdownList(movies);
+        DropdownDisplay();
+        dropdownToggle = true;
+    } else {
+        DropdownRemove();
+        DropdownDisplay();
+        dropdownToggle = false;
+    }
 });
 
-taggy[0].addEventListener('focusout', function () {
-
+textInput[0].addEventListener('focusout', function () {
+    DropdownRemove();
+    DropdownDisplay();
+    dropdownToggle = false;
 });
 
 function DropdownFilter(param) {
     let moviesFilter = movies.filter(function (e) {
-        return e.toLowerCase().startsWith(param.toLowerCase());
-    })
+        return e.toLowerCase().includes(param.toLowerCase());
+    });
 
     DropdownList(moviesFilter);
 }
 
-function DropdownList(movieList) {
+function DropdownRemove() {
     let div = document.getElementsByClassName('tag-list');
-
-    if (div != undefined) {
-        if (movieList.length != 0) {
-            let objList = {
-                div: document.createElement('div'),
-                ul: document.createElement('ul'),
-                li: ''
-            };
-
-            objList.div.classList.add('tag-list');
-            tagsInput[0].appendChild(objList.div); // tagsInput external class.
-
-            objList.div.appendChild(objList.ul);
-
-            movieList.forEach(element => {
-                objList.li = document.createElement('li');
-                objList.li.textContent = element;
-                objList.ul.appendChild(objList.li);
-            });
-
-            div[0].style.display = 'block'
-
-            DropdownDisplay(div);
-        }
-    } else {
-        div[0].style.display = 'none'
-        DropdownDisplay(div);
+    if (div[0] != undefined) {
+        div[0].remove();
     }
 }
 
-function DropdownDisplay(param) {
-    if (param[0].style.display === 'none') {
-        param[0].style.display = 'block';
-        console.log('true');
+function DropdownList(movieList) {
+    if (movieList.length != 0) {
+
+        DropdownRemove();
+
+        let objList = {
+            div: document.createElement('div'),
+            ul: document.createElement('ul'),
+            li: ''
+        };
+
+        objList.div.classList.add('tag-list');
+        tagsInput[0].appendChild(objList.div); // tagsInput external class.
+
+        objList.div.appendChild(objList.ul);
+
+        movieList.forEach(element => {
+            objList.li = document.createElement('li');
+            objList.li.textContent = element;
+            objList.ul.appendChild(objList.li);
+        });
     } else {
-        param[0].style.display = 'none';
-        param[0].remove();
-        console.log('false');
+        // Aqui deberia generar una lista vacia.
+        console.log('empty list');
+    }
+}
+
+function DropdownDisplay() {
+    let div = document.getElementsByClassName('tag-list');
+
+    if (tagsInput[0].children[1]) {
+        div[0].classList.add('tag-list-show');
     }
 
     if (btnArrow[0].classList.contains('fa-chevron-down')) {
