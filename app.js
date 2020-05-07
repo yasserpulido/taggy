@@ -24,7 +24,8 @@ textInput[0].addEventListener('keyup', function (e) {
         AddTag(e.srcElement.value);
     }
 
-    DropdownFilter(e.target.value);
+    let test = DropdownFilter(e.target.value);
+    DropdownDisplay(test);
 });
 
 taggy[0].addEventListener('click', function () {
@@ -33,20 +34,15 @@ taggy[0].addEventListener('click', function () {
     // Puedo retornar un valor true o false despues del metodo dropdrownlist para enviar en el metodo dropdowndisplay.
 
     if (dropdownToggle == false) {
-        DropdownList(movies);
-        DropdownDisplay();
+        let test = DropdownList(movies);
+        DropdownDisplay(test);
         dropdownToggle = true;
     } else {
-        DropdownRemove();
-        DropdownDisplay();
+        let test = false;
+        DropdownDisplay(test);
         dropdownToggle = false;
     }
-});
 
-textInput[0].addEventListener('focusout', function () {
-    DropdownRemove();
-    DropdownDisplay();
-    dropdownToggle = false;
 });
 
 function DropdownFilter(param) {
@@ -54,25 +50,59 @@ function DropdownFilter(param) {
         return e.toLowerCase().includes(param.toLowerCase());
     });
 
-    DropdownList(moviesFilter);
+    return DropdownList(moviesFilter);
 }
 
-function DropdownRemove() {
+function RemoveList() {
     let div = document.getElementsByClassName('tag-list');
-    if (div[0] != undefined) {
-        div[0].remove();
-    }
+    div[0].removeChild(div[0].children[0]);
 }
 
 function DropdownList(movieList) {
     if (movieList.length != 0) {
 
-        DropdownRemove();
+        if (document.getElementsByClassName('tag-list')[0] == undefined) {
 
+            let objList = {
+                div: document.createElement('div'),
+                ul: document.createElement('ul'),
+                li: ''
+            };
+
+            objList.div.classList.add('tag-list');
+            tagsInput[0].appendChild(objList.div); // tagsInput external class.
+
+            objList.div.appendChild(objList.ul);
+
+            movieList.forEach(element => {
+                objList.li = document.createElement('li');
+                objList.li.textContent = element;
+                objList.ul.appendChild(objList.li);
+            });
+        } else {
+
+            RemoveList();
+
+            let objList = {
+                div: document.getElementsByClassName('tag-list'),
+                ul: document.createElement('ul'),
+                li: ''
+            };
+
+            objList.div[0].appendChild(objList.ul);
+
+            movieList.forEach(element => {
+                objList.li = document.createElement('li');
+                objList.li.textContent = element;
+                objList.ul.appendChild(objList.li);
+            });
+        }
+
+    } else {
         let objList = {
             div: document.createElement('div'),
             ul: document.createElement('ul'),
-            li: ''
+            li: document.createElement('li')
         };
 
         objList.div.classList.add('tag-list');
@@ -80,28 +110,22 @@ function DropdownList(movieList) {
 
         objList.div.appendChild(objList.ul);
 
-        movieList.forEach(element => {
-            objList.li = document.createElement('li');
-            objList.li.textContent = element;
-            objList.ul.appendChild(objList.li);
-        });
-    } else {
-        // Aqui deberia generar una lista vacia.
-        console.log('empty list');
+        movieList[0] = 'No options';
+        objList.li.textContent = movieList[0];
+        objList.ul.appendChild(objList.li);
     }
+
+    return true;
 }
 
-function DropdownDisplay() {
-    let div = document.getElementsByClassName('tag-list');
+function DropdownDisplay(param) {
 
-    if (tagsInput[0].children[1]) {
+    if (param == true) {
+        let div = document.getElementsByClassName('tag-list');
         div[0].classList.add('tag-list-show');
-    }
-
-    if (btnArrow[0].classList.contains('fa-chevron-down')) {
-        btnArrow[0].classList.replace('fa-chevron-down', 'fa-chevron-up');
     } else {
-        btnArrow[0].classList.replace('fa-chevron-up', 'fa-chevron-down');
+        let div = document.getElementsByClassName('tag-list');
+        div[0].remove();
     }
 }
 
