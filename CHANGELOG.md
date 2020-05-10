@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 ###### Added:
 
 - A tag is generated when a dropdown list data is clicked.
-- Click on delete button inside the **Input** remove all the tags added.
+- Click on delete button inside the Input remove all the tags added.
 
 ###### Fix:
 
@@ -15,14 +15,14 @@ All notable changes to this project will be documented in this file.
 
 ###### Fix:
 
-- Redesign tags height inside the **Input**.
+- Redesign tags height inside the Input.
 
 ## 0.10 - 05-02-2020
 
 ###### Added:
 
 - Dropdown generated the data by an array.
-- Dropdown list is deployed when the **Input** is clicked.
+- Dropdown list is deployed when the Input is clicked.
 
 ## 0.6 - 04-20-2020
 
@@ -36,11 +36,11 @@ All notable changes to this project will be documented in this file.
 
 - A delete button is added in each tag created.
 - Tags are generated when a word type is entered.
-- Created a tag system inside the *Input*.
+- Created a tag system inside the Input.
 
 ## 0.1 - 04-18-2020
 
 ###### Added:
 
 - Designed the new Input style. 
-- **Input** tag created.
+- Input tag created.
