@@ -1,7 +1,5 @@
 "use strict";
 
-// Español: 
-
 const taggy = document.getElementsByClassName('taggy');
 const tagsInput = document.getElementsByClassName('input-section');
 const textInput = document.getElementsByClassName('text-input');
@@ -19,15 +17,15 @@ const movies = [
     'Fight Club'
 ];
 const btnArrow = document.getElementsByClassName('btn-arrow');
-var dropdownToggle = false;
+var dropdownToggle = false; // El valor se envia como parameteretro al metodo DropdownDisplay. Cuando es False, se cierra y cuando es True se muestra.
 
 textInput[0].addEventListener('keyup', function (e) {
     if (e.keyCode == 13) {
         AddTag(e.srcElement.value);
     }
 
-    let test = DropdownFilter(e.target.value);
-    DropdownDisplay(test);
+    let hasData = DropdownFilter(e.target.value);
+    DropdownDisplay(hasData);
 });
 
 textInput[0].addEventListener('focusout', function () {
@@ -36,25 +34,24 @@ textInput[0].addEventListener('focusout', function () {
 })
 
 taggy[0].addEventListener('click', function () {
-    document.getElementsByClassName('text-input')[0].focus(); // Immediately when taggy is clicked the text-input receive the focus
+    document.getElementsByClassName('text-input')[0].focus();
 
-    // Puedo retornar un valor true o false despues del metodo dropdrownlist para enviar en el metodo dropdowndisplay.
+    // La siguiente condicion if-else me permite verificar cuando mostrar o no el metodo DropdownDisplay.
 
     if (dropdownToggle == false) {
-        let test = DropdownList(movies);
-        DropdownDisplay(test);
+        let hasData = DropdownList(movies);
+        DropdownDisplay(hasData);
         dropdownToggle = true;
     } else {
-        let test = false;
-        DropdownDisplay(test);
+        let hasData = false;
+        DropdownDisplay(hasData);
         dropdownToggle = false;
     }
-
 });
 
-function DropdownFilter(param) {
+function DropdownFilter(parameter) {
     let moviesFilter = movies.filter(function (e) {
-        return e.toLowerCase().includes(param.toLowerCase());
+        return e.toLowerCase().includes(parameter.toLowerCase());
     });
 
     return DropdownList(moviesFilter);
@@ -69,7 +66,6 @@ function DropdownList(movieList) {
     if (movieList.length != 0) {
 
         if (document.getElementsByClassName('tag-list')[0] == undefined) {
-
             let objList = {
                 div: document.createElement('div'),
                 ul: document.createElement('ul'),
@@ -87,7 +83,6 @@ function DropdownList(movieList) {
                 objList.ul.appendChild(objList.li);
             });
         } else {
-
             RemoveList();
 
             let objList = {
@@ -125,9 +120,8 @@ function DropdownList(movieList) {
     return true;
 }
 
-function DropdownDisplay(param) {
-
-    if (param == true) {
+function DropdownDisplay(parameter) {
+    if (parameter == true) {
         let div = document.getElementsByClassName('tag-list');
         div[0].classList.add('tag-list-show');
     } else {
@@ -136,7 +130,7 @@ function DropdownDisplay(param) {
     }
 }
 
-function AddTag(param) {
+function AddTag(parameter) {
     console.log('creating object tag...');
     let objTag = {
         span: document.createElement('span'),
@@ -154,7 +148,7 @@ function AddTag(param) {
     objTag.p.addEventListener('click', function () {
         EditTag(objTag);
     });
-    objTag.p.textContent = TitleCase(param.trim());
+    objTag.p.textContent = TitleCase(parameter.trim());
     objTag.content = objTag.p.textContent;
     objTag.span.appendChild(objTag.p);
 
@@ -203,3 +197,25 @@ function TitleCase(str) {
     // Directly return the joined string
     return splitStr.join(' ');
 }
+
+// MIT License
+
+// Copyright (c) 2020 Yasser
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.

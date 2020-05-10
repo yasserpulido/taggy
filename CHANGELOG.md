@@ -8,14 +8,21 @@ All notable changes to this project will be documented in this file.
 
 - A tag is generated when a dropdown list data is clicked.
 - Click on delete button inside the Input remove all the tags added.
+- Comment the code.
 
 ###### Fix:
 
-- The dropdown list opened automatically when is closed. 
+- The dropdown list opened automatically when is closed.
+- Show in the Dropdown List 'No Options' when a wrong word is typed.
 
-###### Fix:
+###### Change:
 
 - Redesign tags height inside the Input.
+- Change array movieList for a generic name.
+
+###### Remove:
+
+- Elimate some unnecessary comment from the code.
 
 ## 0.10 - 05-02-2020
 
