@@ -1,5 +1,7 @@
 "use strict";
 
+// Español: 
+
 const taggy = document.getElementsByClassName('taggy');
 const tagsInput = document.getElementsByClassName('input-section');
 const textInput = document.getElementsByClassName('text-input');
@@ -27,6 +29,11 @@ textInput[0].addEventListener('keyup', function (e) {
     let test = DropdownFilter(e.target.value);
     DropdownDisplay(test);
 });
+
+textInput[0].addEventListener('focusout', function () {
+    DropdownDisplay(false);
+    dropdownToggle = false;
+})
 
 taggy[0].addEventListener('click', function () {
     document.getElementsByClassName('text-input')[0].focus(); // Immediately when taggy is clicked the text-input receive the focus
